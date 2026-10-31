@@ -113,7 +113,6 @@ ai-phishing-email-detector/
   run.py
 ```
 
-## GitHub delivery checklist
 
 1. Create a repository named `ai-phishing-email-detector`.
 2. Commit source code, tests, README and screenshots.
