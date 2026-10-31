@@ -13,9 +13,6 @@ A free, local-first student project built with Python, Flask, SQLite, Ollama and
 - Downloadable JSON scan reports.
 - Tests for rules, score boundaries, form validation and a mocked AI response.
 
-## What is free?
-
-Python, Flask, SQLite, pytest, the MCP Python SDK and Ollama are free/open-source. The language model runs on your own computer, so there is no per-request paid AI API. You need enough RAM and disk space to run the model. The app's Google Fonts import is only for styling; if you want fully offline UI assets too, remove the `@import` line in `app/static/style.css` and it will use system fonts.
 
 ## Requirements
 
