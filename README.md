@@ -112,3 +112,10 @@ ai-phishing-email-detector/
   mcp_client.py
   run.py
 ```
+
+## GitHub delivery checklist
+
+1. Create a repository named `ai-phishing-email-detector`.
+2. Commit source code, tests, README and screenshots.
+3. Do not commit `.env`, the SQLite database, secrets or real email content.
+4. Include screenshots after running the app and share the repository URL with your instructor/team.
