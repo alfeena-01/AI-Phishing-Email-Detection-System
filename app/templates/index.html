@@ -21,6 +21,36 @@
   </aside>
 </section>
 
+<section class="dashboard-stats" aria-label="Scan statistics">
+  <div class="stats-heading">
+    <div><div class="eyebrow">YOUR ACTIVITY</div><h2>Security overview</h2></div>
+    <a href="{{ url_for('main.history') }}">View scan history <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="stats-grid">
+    <article class="stat-card stat-total">
+      <div class="stat-card-top"><span class="stat-icon">▤</span><span class="stat-caption">ALL TIME</span></div>
+      <div class="stat-value">{{ stats.total_scans }}</div><div class="stat-label">Total scans</div>
+      <p>Emails analyzed on this device</p>
+    </article>
+    <article class="stat-card stat-phishing">
+      <div class="stat-card-top"><span class="stat-icon">⌁</span><span class="stat-caption">AI VERDICT</span></div>
+      <div class="stat-value">{{ stats.phishing_detected }}</div><div class="stat-label">Likely phishing</div>
+      <p>Scans classified as likely phishing</p>
+    </article>
+    <article class="stat-card stat-suspicious">
+      <div class="stat-card-top"><span class="stat-icon">◈</span><span class="stat-caption">REVIEW</span></div>
+      <div class="stat-value">{{ stats.suspicious_emails }}</div><div class="stat-label">Suspicious emails</div>
+      <p>Messages needing extra caution</p>
+    </article>
+    <article class="stat-card stat-highrisk">
+      <div class="stat-card-top"><span class="stat-icon">!</span><span class="stat-caption">RISK SCORE</span></div>
+      <div class="stat-value">{{ stats.high_risk_emails }}</div><div class="stat-label">High-risk scans</div>
+      <p>High or Critical score category</p>
+    </article>
+  </div>
+  <p class="stats-note">Statistics are calculated from saved scan history. Verdict counts and risk-score categories are separate measures.</p>
+</section>
+
 <section class="scan-layout">
   <article class="panel scan-panel">
     <div class="panel-topline"><div><div class="eyebrow">01 / INPUT</div><h2>Analyze an email</h2><p class="panel-subtitle">Paste the message you want to inspect.</p></div><span class="panel-number">NEW SCAN <span>↗</span></span></div>

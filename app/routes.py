@@ -14,7 +14,21 @@ def safe_text(value, limit):
 @bp.get("/")
 def index():
     status = check_ollama(current_app.config["OLLAMA_URL"])
-    return render_template("index.html", status=status, model=current_app.config["OLLAMA_MODEL"])
+    db = get_db()
+    stats_row = db.execute("""
+        SELECT
+            COUNT(*) AS total_scans,
+            SUM(CASE WHEN LOWER(verdict) = 'likely phishing' THEN 1 ELSE 0 END) AS phishing_detected,
+            SUM(CASE WHEN LOWER(verdict) = 'suspicious' THEN 1 ELSE 0 END) AS suspicious_emails,
+            SUM(CASE WHEN category IN ('High', 'Critical') THEN 1 ELSE 0 END) AS high_risk_emails
+        FROM scans
+    """).fetchone()
+    stats = {key: int(stats_row[key] or 0) for key in (
+        "total_scans", "phishing_detected", "suspicious_emails", "high_risk_emails"
+    )}
+    return render_template(
+        "index.html", status=status, model=current_app.config["OLLAMA_MODEL"], stats=stats
+    )
 
 @bp.post("/analyze")
 def analyze():
