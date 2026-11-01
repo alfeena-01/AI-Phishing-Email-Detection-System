@@ -277,24 +277,18 @@ def _validate_result(result, sender, subject, body):
         min(1.0, confidence),
     )
 
+    
     uncertainty = result.get(
-        "uncertainty",
-        "The email alone cannot confirm sender authenticity.",
-    )
-
-    if not isinstance(
-        uncertainty,
-        (str, int, float),
-    ):
-        uncertainty = (
-            "The email alone cannot confirm sender authenticity."
-        )
+    "uncertainty",
+    "AI output may be wrong.",
+)
+    if not isinstance(uncertainty, (str, int, float)):
+      uncertainty = "AI output may be wrong."
 
     result["uncertainty"] = (
-        str(uncertainty)[:500]
-        or "The email alone cannot confirm sender authenticity."
-    )
-
+    str(uncertainty)[:500]
+    or "AI output may be wrong."
+)
     return result
 
 
