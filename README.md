@@ -116,3 +116,13 @@ ai-phishing-email-detector/
 2. Commit source code, tests, README and screenshots.
 3. Do not commit `.env`, the SQLite database, secrets or real email content.
 4. Include screenshots after running the app and share the repository URL with your instructor/team.
+
+
+### Rule-based indicators
+
+The rule engine checks for suspicious links and URL formats, urgent or threatening language,
+account-verification or credential wording, payment-related requests, requests for personal
+or financial information, unexpected prize/reward claims, and suspicious wording in sender
+domains. These are heuristic signals, not proof of phishing. Rule and AI points are combined
+and capped at 100; tune the rules against a labeled test set before using the score for real
+security decisions.

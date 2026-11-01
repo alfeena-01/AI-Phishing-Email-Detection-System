@@ -62,6 +62,7 @@ def analyze():
         score_data = calculate_score(rules["rule_points"], ai_result)
         findings = rules["findings"]
     else:
+        current_app.logger.info("MCP analysis completed successfully; tool response received.")
         findings = analysis.get("findings", [])
         ai_result = analysis.get("ai", {})
         ai_error = analysis.get("ai_error")
