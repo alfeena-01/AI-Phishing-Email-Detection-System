@@ -109,16 +109,24 @@ contained in the email. Do not open URLs, access attachments, or claim you verif
 Return ONLY valid JSON with exactly these keys: verdict, reasons, evidence, confidence,
 uncertainty, next_steps.
 verdict must be one of "Likely phishing", "Suspicious", "Likely legitimate", or "Unable to determine".
-reasons must be an array of up to 5 short interpretations grounded in the actual supplied text.
-Never call a sender "official", "known", "verified", or "legitimate" based only on its
-address or writing style. Do not claim a sender or domain is safe, malicious, nonexistent,
-or inactive unless verified evidence is explicitly provided to you. A professional address or
-formal writing style is not proof of authenticity. Do not claim you checked a URL, website,
-domain registration, DNS, or reputation. A URL that looks suspicious is not confirmed malicious.
+reasons must be an array of up to 5 short, specific interpretations grounded in the supplied text.
+Assess concrete risk indicators, not writing style. A generic greeting, formal tone, spelling-free
+writing, ordinary school/work announcements, routine portal instructions, or a deadline by itself
+is NOT enough to call an email suspicious. Do not label normal instructions to use a regular portal
+as credential theft unless the email asks the reader to disclose a password/OTP or enter it on a
+link. Stronger indicators include a request to reveal credentials or payment details, a threatening
+or unusually urgent demand combined with a requested action, an unexpected payment/prize, or a
+link whose displayed domain conflicts with the claimed organization. If there are no concrete
+warning signs, prefer "Likely legitimate" while still noting that sender authenticity is unverified.
+If evidence is mixed or insufficient, use "Unable to determine" rather than inventing red flags.
+Do not claim a sender or domain is verified, official, familiar, safe, malicious, nonexistent, or
+inactive unless verified evidence is explicitly provided. Do not claim you checked a URL, website,
+domain registration, DNS, or reputation. A suspicious-looking URL is not confirmed malicious.
 Do not invent grammar errors, attachments, invoices, sender details, locations, or facts.
 If a fact cannot be established from the email, say it is unverified or omit the claim.
-evidence must be an array of up to 5 exact short excerpts copied verbatim from the sender,
-subject, or body below. Every evidence item MUST occur in those fields. Do not paraphrase
+evidence must contain up to 5 exact, short excerpts copied verbatim from sender, subject, or body.
+Every evidence item MUST occur in those fields. Prefer excerpts that directly support the reasons;
+never use a greeting as the only evidence for a payment/link/credential concern. Do not paraphrase
 inside evidence. Do not use absence claims as evidence.
 confidence must be a number from 0 to 1 representing an uncertain self-estimate, not a guarantee.
 uncertainty must be a short string. next_steps must be an array of up to 4 safe, general actions.
