@@ -3,20 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}PhishGuard Local{% endblock %}</title>
+  <meta name="theme-color" content="#090d14">
+  <meta name="description" content="Local-first phishing email analysis powered by transparent rules and Ollama.">
+  <title>{% block title %}PhishGuardLOCAL · Email Security{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+<div class="ambient ambient-one" aria-hidden="true"></div>
+<div class="ambient ambient-two" aria-hidden="true"></div>
 <header class="topbar">
-  <a class="brand" href="{{ url_for('main.index') }}"><span class="brand-icon">P</span> PhishGuard <span class="muted">LOCAL</span></a>
-  <nav><a href="{{ url_for('main.index') }}">Analyze</a><a href="{{ url_for('main.history') }}">Scan history</a></nav>
+  <a class="brand" href="{{ url_for('main.index') }}" aria-label="PhishGuardLOCAL home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2.8 20 6v5.5c0 5.1-3.4 8.3-8 10.1-4.6-1.8-8-5-8-10.1V6l8-3.2Z" stroke="currentColor" stroke-width="1.7"/><path d="m8.5 12.1 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="brand-name">PhishGuard<span>LOCAL</span></span>
+  </a>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a class="{% if request.endpoint == 'main.index' or request.endpoint == 'main.analyze' %}active{% endif %}" href="{{ url_for('main.index') }}"><span class="nav-icon">⌕</span> New scan</a>
+    <a class="{% if request.endpoint in ['main.history', 'main.scan_detail'] %}active{% endif %}" href="{{ url_for('main.history') }}"><span class="nav-icon">▤</span> Scan history</a>
+  </nav>
+  <div class="topbar-status"><span class="pulse-dot"></span><span>LOCAL ENVIRONMENT</span></div>
 </header>
 <main class="container">
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}<div class="messages">{% for category, message in messages %}<div class="notice {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
   {% endwith %}
   {% block content %}{% endblock %}
-  <p class="footer-note">Advisory tool only · Never click suspicious links automatically · Local AI requires Ollama</p>
+  <footer class="footer">
+    <div class="footer-brand"><span class="footer-shield">◆</span> PhishGuardLOCAL</div>
+    <p>Local-first email analysis · Advisory tool only</p>
+    <p class="footer-warning">Never enter passwords or OTPs through an unverified email link.</p>
+  </footer>
 </main>
 </body>
 </html>

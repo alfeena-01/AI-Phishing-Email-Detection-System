@@ -1,54 +1,83 @@
 {% extends "base.html" %}
-{% block title %}Analyze Email · PhishGuard<script>
-  const analysisForm = document.getElementById("email-analysis-form");
-  if (analysisForm) {
-    analysisForm.addEventListener("submit", () => {
-      const button = analysisForm.querySelector('button[type="submit"]');
-      if (button) {
-        button.disabled = true;
-        button.textContent = "Analyzing email… please wait";
-      }
-    });
-  }
-</script>
-{% endblock %}
+{% block title %}New Scan · PhishGuardLOCAL{% endblock %}
 {% block content %}
-<section class="hero">
-  <div class="eyebrow">LOCAL-FIRST EMAIL SECURITY</div>
-  <h1>Spot suspicious emails<br><span>before you trust them.</span></h1>
-  <p>Combine transparent warning-sign checks with a local AI model. Your email text is sent to your own Ollama service, not a paid AI API.</p>
-  <div class="status-row"><span class="status-dot online"></span> Local MCP analysis tools · <span class="status-dot {{ 'online' if status.available else 'offline' }}"></span>
-  Ollama {{ 'connected' if status.available else 'not detected' }} · Model: <b>{{ model }}</b></div>
-  {% if not status.available %}<p class="small warning-text">Rule-based analysis still works without Ollama. For AI analysis, install Ollama and download the model in the README.</p>{% endif %}
+<section class="hero hero-dashboard">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="eyebrow-line"></span> LOCAL-FIRST EMAIL SECURITY</div>
+    <h1>Think before<br><span>you click.</span></h1>
+    <p>Inspect suspicious messages with transparent rule checks and a locally running AI model. Your email content stays in your local analysis workflow.</p>
+    <div class="hero-chips">
+      <span class="chip"><span class="chip-icon">⌘</span> Rule-based detection</span>
+      <span class="chip"><span class="chip-icon">◈</span> Local AI review</span>
+      <span class="chip"><span class="chip-icon">▣</span> Private by design</span>
+    </div>
+  </div>
+  <aside class="system-card">
+    <div class="system-card-head"><span class="system-icon">◉</span><div><strong>System status</strong><small>Analysis services</small></div><span class="live-badge">LOCAL</span></div>
+    <div class="system-row"><span><i class="status-indicator online"></i> MCP analysis</span><b>Configured</b></div>
+    <div class="system-row"><span><i class="status-indicator {{ 'online' if status.available else 'offline' }}"></i> Ollama service</span><b class="{{ 'text-green' if status.available else 'text-red' }}">{{ 'Connected' if status.available else 'Offline' }}</b></div>
+    <div class="system-model"><span>ACTIVE MODEL</span><strong>{{ model }}</strong></div>
+    {% if not status.available %}<p class="system-warning">Ollama was not detected. Rule checks may still be available, but AI review may not complete. Check the local Ollama service.</p>{% else %}<p class="system-footnote">Your local model is reachable and ready for analysis.</p>{% endif %}
+  </aside>
 </section>
-<section class="panel">
-  <div class="panel-heading"><div><div class="eyebrow">NEW SCAN</div><h2>Analyze an email</h2></div><span class="step">01 / INPUT</span></div>
-  <form id="email-analysis-form" action="{{ url_for('main.analyze') }}" method="post" class="email-form">
-    <label for="sender">Sender email / display name</label>
-    <input id="sender" name="sender" maxlength="500" required placeholder="Example: Support Team &lt;support@example.com&gt;">
-    <label for="subject">Email subject</label>
-    <input id="subject" name="subject" maxlength="500" required placeholder="Example: Action required for your account">
-    <label for="body">Email body</label>
-    <textarea id="body" name="body" maxlength="12000" required rows="8" placeholder="Paste synthetic or authorized email text here..."></textarea>
-    <div class="form-foot"><span class="small">Max 12,000 characters. Do not paste secrets or real personal data.</span><button class="button primary" type="submit">Analyze email <span>→</span></button></div>
-  </form>
-</section>
-<section class="feature-grid">
-  <article class="mini-card"><div class="mini-icon">⌁</div><h3>Rule checks</h3><p>Links, urgency, credential requests, payment requests and possible sender mismatches.</p></article>
-  <article class="mini-card"><div class="mini-icon">⌘</div><h3>MCP tools</h3><p>A local MCP server connects the dashboard to the analysis and safety-guidance tools.</p></article>
-  <article class="mini-card"><div class="mini-icon">◎</div><h3>Local AI</h3><p>Ollama reviews context and returns a structured, explainable assessment.</p></article>
-  <article class="mini-card"><div class="mini-icon">▤</div><h3>Scan history</h3><p>Save results in a local SQLite database and export reports as JSON.</p></article>
+
+<section class="scan-layout">
+  <article class="panel scan-panel">
+    <div class="panel-topline"><div><div class="eyebrow">01 / INPUT</div><h2>Analyze an email</h2><p class="panel-subtitle">Paste the message you want to inspect.</p></div><span class="panel-number">NEW SCAN <span>↗</span></span></div>
+    <form id="email-analysis-form" action="{{ url_for('main.analyze') }}" method="post" class="email-form">
+      <div class="field-group">
+        <label for="sender">Sender email / display name <span class="required">*</span></label>
+        <input id="sender" name="sender" maxlength="500" required autocomplete="off" placeholder="e.g. Support Team &lt;support@example.com&gt;">
+      </div>
+      <div class="field-group">
+        <label for="subject">Email subject <span class="required">*</span></label>
+        <input id="subject" name="subject" maxlength="500" required placeholder="e.g. Action required for your account">
+      </div>
+      <div class="field-group">
+        <div class="label-line"><label for="body">Email body <span class="required">*</span></label><span class="field-hint">Plain text is best</span></div>
+        <textarea id="body" name="body" maxlength="12000" required rows="9" placeholder="Paste synthetic or authorized email text here…"></textarea>
+        <div class="textarea-meta"><span class="small">Do not paste passwords, OTPs, or real personal data.</span><span id="char-count" class="char-count">0 / 12,000</span></div>
+      </div>
+      <div class="form-bottom"><div class="privacy-note"><span>◇</span><span><strong>Local analysis</strong><small>Do not open links automatically.</small></span></div><button class="button primary submit-button" type="submit"><span class="button-label">Analyze email</span><span class="button-arrow">↗</span></button></div>
+    </form>
+    <div id="analysis-progress" class="analysis-progress" hidden><span class="spinner"></span><span>Analyzing message locally… this may take a moment.</span></div>
+  </article>
+  <aside class="scan-aside">
+    <div class="aside-heading"><span class="eyebrow">HOW IT WORKS</span><span class="aside-counter">02 — 04</span></div>
+    <div class="workflow-list">
+      <div class="workflow-item"><span class="workflow-icon icon-blue">⌁</span><div><strong>Rule-based signals</strong><p>Checks for urgency, links, credential requests, and payment language.</p></div></div>
+      <div class="workflow-item"><span class="workflow-icon icon-purple">◈</span><div><strong>Local AI context</strong><p>Ollama reviews the message and provides an additional assessment.</p></div></div>
+      <div class="workflow-item"><span class="workflow-icon icon-green">✓</span><div><strong>Actionable report</strong><p>Review the score, supporting evidence, uncertainty, and safe next steps.</p></div></div>
+    </div>
+    <div class="safety-card"><div class="safety-icon">!</div><div><strong>Stay cautious</strong><p>A low score does not prove an email is safe. Verify unexpected requests through a separate trusted channel.</p></div></div>
+    <a class="history-cta" href="{{ url_for('main.history') }}"><span class="history-cta-icon">▤</span><span><strong>Review scan history</strong><small>Open saved reports on this device</small></span><span class="cta-arrow">→</span></a>
+  </aside>
 </section>
 <script>
-  const analysisForm = document.getElementById("email-analysis-form");
-  if (analysisForm) {
-    analysisForm.addEventListener("submit", () => {
-      const button = analysisForm.querySelector('button[type="submit"]');
+(() => {
+  const form = document.getElementById("email-analysis-form");
+  const body = document.getElementById("body");
+  const counter = document.getElementById("char-count");
+  const progress = document.getElementById("analysis-progress");
+  if (body && counter) {
+    const updateCount = () => {
+      counter.textContent = `${body.value.length.toLocaleString()} / 12,000`;
+      counter.classList.toggle("near-limit", body.value.length > 10800);
+    };
+    body.addEventListener("input", updateCount);
+    updateCount();
+  }
+  if (form) {
+    form.addEventListener("submit", () => {
+      const button = form.querySelector('button[type="submit"]');
       if (button) {
         button.disabled = true;
-        button.textContent = "Analyzing email… please wait";
+        button.querySelector(".button-label").textContent = "Analyzing…";
+        button.querySelector(".button-arrow").textContent = "• • •";
       }
+      if (progress) progress.hidden = false;
     });
   }
+})();
 </script>
 {% endblock %}

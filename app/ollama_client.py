@@ -110,7 +110,8 @@ Return ONLY valid JSON with exactly these keys: verdict, reasons, evidence, conf
 uncertainty, next_steps.
 verdict must be one of "Likely phishing", "Suspicious", "Likely legitimate", or "Unable to determine".
 reasons must be an array of up to 5 short interpretations grounded in the actual supplied text.
-Do not claim a sender or domain is verified, official, familiar, safe, malicious, nonexistent,
+Never call a sender "official", "known", "verified", or "legitimate" based only on its
+address or writing style. Do not claim a sender or domain is safe, malicious, nonexistent,
 or inactive unless verified evidence is explicitly provided to you. A professional address or
 formal writing style is not proof of authenticity. Do not claim you checked a URL, website,
 domain registration, DNS, or reputation. A URL that looks suspicious is not confirmed malicious.
