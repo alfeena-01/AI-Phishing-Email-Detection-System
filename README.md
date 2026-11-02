@@ -2,7 +2,6 @@
 
 # 🛡️ PhishGuardLOCAL
 
-### AI-Powered Phishing Email Detection System
 
 **Detect suspicious emails. Understand the warning signs. Stay safer online.**
 
