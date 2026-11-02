@@ -526,7 +526,6 @@ The application's scan history is stored in:
 instance/scans.sqlite3
 ```
 
-
 ---
 
 ## 🛠️ Troubleshooting
