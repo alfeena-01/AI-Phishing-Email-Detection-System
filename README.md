@@ -51,8 +51,6 @@ Analyze email senders, subjects, and message content using transparent security 
 
 Here are the main application screens to showcase in your GitHub repository.
 
-> **How to add your screenshots:** Create a folder named `screenshots` in your project root, capture screenshots of your actual running application, and save them using the filenames below. The images will appear in this section after you add the files.
-
 ### 🏠 1. Main Dashboard
 
 The main interface where users enter an email sender, subject, and message body for analysis.
