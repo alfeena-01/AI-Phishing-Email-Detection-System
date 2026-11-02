@@ -85,12 +85,6 @@ Show how the application presents the AI assessment alongside rule-based finding
   <img src="screenshots/ai-analysis.png" alt="PhishGuardLOCAL AI-assisted analysis" width="850">
 </p>
 
-**Screenshot tips**
-- Capture screenshots directly from your running application.
-- Use realistic but fictional email examples.
-- Hide private information, tokens, passwords, and personal email addresses.
-- Use consistent screenshot dimensions for a cleaner GitHub page.
-- Remove any screenshot section whose corresponding feature is not shown in your application.
 
 ---
 
