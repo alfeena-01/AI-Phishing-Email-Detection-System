@@ -281,7 +281,6 @@ llama3.2:3b
 
 To use another model, configure the `OLLAMA_MODEL` environment variable before starting the application.
 
-**Cost information:** Ollama and the model are free to use. You remain responsible for your computer's hardware, storage, and electricity costs.
 
 ---
 
