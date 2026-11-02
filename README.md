@@ -49,7 +49,6 @@ Analyze email senders, subjects, and message content using transparent security 
 
 ## 📸 Screenshots
 
-Here are the main application screens to showcase in your GitHub repository.
 
 ### 🏠 1. Main Dashboard
 
