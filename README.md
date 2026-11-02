@@ -526,7 +526,6 @@ The application's scan history is stored in:
 instance/scans.sqlite3
 ```
 
-Keep the database and real email content out of your public GitHub repository.
 
 ---
 
