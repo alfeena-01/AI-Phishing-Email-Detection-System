@@ -9,11 +9,11 @@
 <section class="result-grid">
   <article class="panel score-panel">
     <div class="panel-topline"><div><div class="eyebrow">COMBINED RISK SCORE</div><h2>Threat assessment</h2></div><span class="tiny-label">OUT OF 100</span></div>
-    <div class="score-ring score-{{ result.category|lower }}" style="--score: {{ result.score }};"><div class="score-ring-inner"><span>{{ result.score }}</span><small>/100</small></div></div>
+    <div class="score-ring score-{{ result.category|lower }}"><svg class="score-ring-chart" viewBox="0 0 100 100" aria-hidden="true"><circle class="score-ring-track" cx="50" cy="50" r="47.5"></circle><circle class="score-ring-value" cx="50" cy="50" r="47.5" pathLength="100" stroke-dasharray="{{ result.score }} 100"></circle></svg><div class="score-ring-inner"><span>{{ result.score }}</span><small>/100</small></div></div>
     <div class="risk-pill risk-{{ result.category|lower }}"><span class="risk-dot"></span>{{ result.category }} risk</div>
     <h3 class="verdict-title">{{ result.verdict }}</h3>
     <p class="score-summary">{{ result.score_data.summary }}</p>
-    <div class="score-scale"><span>LOW</span><div class="scale-track"><i class="scale-marker" style="left: {{ result.score }}%;"></i></div><span>CRITICAL</span></div>
+    <div class="score-scale"><span>LOW</span><input class="scale-track" type="range" min="0" max="100" value="{{ result.score }}" disabled aria-hidden="true"><span>CRITICAL</span></div>
     <div class="score-legend"><span><i class="legend-dot rule-dot"></i> Rule signals <b>max 60</b></span><span><i class="legend-dot ai-dot"></i> AI assessment <b>max 40</b></span></div>
   </article>
   <article class="panel findings-panel">
@@ -40,7 +40,7 @@
     <div class="next-steps-card">
       <h3><span class="section-icon">✓</span> Recommended actions</h3>
       {% if result.ai.next_steps %}<ol class="action-list">{% for item in result.ai.next_steps %}<li><span>{{ loop.index }}</span><p>{{ item }}</p></li>{% endfor %}</ol>{% else %}<p class="muted">No additional actions were returned. Verify unexpected requests through a trusted channel.</p>{% endif %}
-      {% if result.ai.confidence is defined %}<div class="confidence-row"><span>AI self-reported confidence</span><strong>{{ (result.ai.confidence * 100)|round|int }}%</strong></div><div class="confidence-track"><span style="width: {{ (result.ai.confidence * 100)|round|int }}%;"></span></div><p class="small">This is the model’s own estimate, not a calibrated probability or the phishing risk score.</p>{% endif %}
+      {% if result.ai.confidence is defined %}<div class="confidence-row"><span>AI self-reported confidence</span><strong>{{ (result.ai.confidence * 100)|round|int }}%</strong></div><progress class="confidence-track" max="100" value="{{ (result.ai.confidence * 100)|round|int }}">{{ (result.ai.confidence * 100)|round|int }}%</progress><p class="small">This is the model’s own estimate, not a calibrated probability or the phishing risk score.</p>{% endif %}
       <div class="uncertainty-box"><strong>Uncertainty</strong><p>{{ result.ai.uncertainty or 'AI output may be wrong.' }}</p></div>
     </div>
   </div>

@@ -162,7 +162,11 @@ p { color: var(--muted); }
 .score-panel { text-align: center; }
 .score-panel .panel-topline { text-align: left; }
 .score-panel .panel-topline h2 { font-size: 19px; }
-.score-ring { --score: 0; position: relative; display: grid; place-items: center; width: 170px; height: 170px; margin: 24px auto 17px; border-radius: 50%; background: conic-gradient(var(--ring-color, var(--accent)) calc(var(--score) * 1%), #253447 0); }
+.score-ring { position: relative; display: grid; place-items: center; width: 170px; height: 170px; margin: 24px auto 17px; border-radius: 50%; }
+.score-ring-chart { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.score-ring-track, .score-ring-value { fill: none; stroke-width: 5; }
+.score-ring-track { stroke: #253447; }
+.score-ring-value { stroke: var(--ring-color, var(--accent)); }
 .score-ring::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: #101925; border: 1px solid rgba(143, 166, 192, .13); }
 .score-ring-inner { position: relative; display: flex; align-items: baseline; gap: 3px; }
 .score-ring-inner span { font: 700 47px/1 'Space Grotesk', sans-serif; letter-spacing: -2px; }
@@ -180,8 +184,11 @@ p { color: var(--muted); }
 .verdict-title { margin: 14px 0 5px; font-size: 17px; }
 .score-summary { max-width: 330px; margin: 0 auto; font-size: 11px; line-height: 1.7; }
 .score-scale { display: flex; align-items: center; gap: 9px; margin-top: 22px; color: var(--muted-2); font-size: 8px; font-weight: 700; letter-spacing: .8px; }
-.scale-track { position: relative; height: 4px; flex: 1; border-radius: 99px; background: linear-gradient(90deg, var(--green), var(--yellow), var(--orange), var(--red)); }
-.scale-marker { position: absolute; top: 50%; width: 10px; height: 10px; border: 2px solid #eaf4fb; border-radius: 50%; background: #101925; transform: translate(-50%, -50%); box-shadow: 0 0 0 3px rgba(237, 244, 251, .12); }
+.scale-track { appearance: none; flex: 1; width: 100%; height: 12px; margin: 0; padding: 0; border: 0; border-radius: 99px; background: transparent; opacity: 1; }
+.scale-track::-webkit-slider-runnable-track { height: 4px; border-radius: 99px; background: linear-gradient(90deg, var(--green), var(--yellow), var(--orange), var(--red)); }
+.scale-track::-moz-range-track { height: 4px; border-radius: 99px; background: linear-gradient(90deg, var(--green), var(--yellow), var(--orange), var(--red)); }
+.scale-track::-webkit-slider-thumb { appearance: none; width: 10px; height: 10px; margin-top: -3px; border: 2px solid #eaf4fb; border-radius: 50%; background: #101925; box-shadow: 0 0 0 3px rgba(237, 244, 251, .12); }
+.scale-track::-moz-range-thumb { width: 10px; height: 10px; border: 2px solid #eaf4fb; border-radius: 50%; background: #101925; box-shadow: 0 0 0 3px rgba(237, 244, 251, .12); }
 .score-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line-soft); color: var(--muted); font-size: 10px; }
 .score-legend span { display: inline-flex; align-items: center; gap: 6px; }
 .score-legend b { color: #d1dce8; font-weight: 600; }
@@ -224,8 +231,10 @@ p { color: var(--muted); }
 .action-list p { margin: 1px 0 0; color: #bfccd9; font-size: 11px; line-height: 1.7; }
 .confidence-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; color: var(--muted); font-size: 10px; }
 .confidence-row strong { color: var(--accent); font: 700 17px 'Space Grotesk', sans-serif; }
-.confidence-track { height: 4px; margin-top: 7px; border-radius: 99px; background: #243346; overflow: hidden; }
-.confidence-track span { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+.confidence-track { appearance: none; display: block; width: 100%; height: 4px; margin-top: 7px; border: 0; border-radius: 99px; background: #243346; color: var(--accent); overflow: hidden; }
+.confidence-track::-webkit-progress-bar { border-radius: 99px; background: #243346; }
+.confidence-track::-webkit-progress-value { border-radius: 99px; background: var(--accent); }
+.confidence-track::-moz-progress-bar { border-radius: 99px; background: var(--accent); }
 .next-steps-card > .small { margin: 7px 0 0; font-size: 9px; line-height: 1.6; }
 .uncertainty-box { margin-top: 17px; padding: 11px 12px; border: 1px solid rgba(248, 203, 105, .16); border-radius: 9px; background: rgba(248, 203, 105, .04); }
 .uncertainty-box strong { color: #efd28d; font-size: 10px; }
